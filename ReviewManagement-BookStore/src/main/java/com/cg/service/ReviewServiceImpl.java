@@ -22,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService{
 			return new ResponseEntity<Review>(review, HttpStatus.NOT_FOUND);
 		else {
 			review.setBook(reviews.get().getBook());
-			review.setCustomer(reviews.get().getCustomer());
+			review.setUser(reviews.get().getUser());
 			review.setRating(reviews.get().getRating());
 			return new ResponseEntity<Review>(reviewDao.save(review), HttpStatus.OK);
 		}
@@ -54,9 +54,12 @@ public class ReviewServiceImpl implements ReviewService{
 			review.setComments(reviews.get().getComments());
 			review.setHeadline(reviews.get().getHeadline());
 			return new ResponseEntity<Review>(review, HttpStatus.FOUND);
-		} else {
+			}
+		else 
 			return new ResponseEntity<Review>(reviewDao.save(review), HttpStatus.OK);
+	
+			
 		}
 	}
 
-}
+          

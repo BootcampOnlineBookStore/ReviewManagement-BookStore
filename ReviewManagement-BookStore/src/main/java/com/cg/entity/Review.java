@@ -1,24 +1,29 @@
 package com.cg.entity;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+/************************************************************************************
+ *          @author          Vaishnavi Voorelli
+ *          Description      It is an Entity class for Reviews 
+  *         Version             1.0
+  *         Created Date     05-10-2020
+ ************************************************************************************/
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "review")
+@Table(name = "review_tb")
 public class Review {
 	@Id
-	@Column(length = 200)
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "review_seq",strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "review_seq",sequenceName = "review_seq")
 	private int reviewId;
 
 	@ManyToOne
@@ -26,8 +31,8 @@ public class Review {
 	private Book book;
 	
 	@ManyToOne
-	@JoinColumn(name = "mailId")
-	private Customer customer;
+	@JoinColumn(name = "email_id")
+	private User user;
 	@Column(length = 5, name = "rating")
 	private int rating;
 	@Column(length = 128, name = "headline")
@@ -38,14 +43,6 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(int reviewId, Book book, Customer customer, int rating, String headline, String comments) {
-		this.reviewId = reviewId;
-		this.book = book;
-		this.customer = customer;
-		this.rating = rating;
-		this.headline = headline;
-		this.comments = comments;
-	}
 
 	public Review(int reviewId, int rating, String headline, String comments) {
 		super();
@@ -55,57 +52,84 @@ public class Review {
 		this.comments = comments;
 	}
 
+
+	public Review(int reviewId, Book book, User user, int rating, String headline, String comments) {
+		super();
+		this.reviewId = reviewId;
+		this.book = book;
+		this.user = user;
+		this.rating = rating;
+		this.headline = headline;
+		this.comments = comments;
+	}
+
+
 	public int getReviewId() {
 		return reviewId;
 	}
+
 
 	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
 
+
 	public Book getBook() {
 		return book;
 	}
+
 
 	public void setBook(Book book) {
 		this.book = book;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
+
 
 	public int getRating() {
 		return rating;
 	}
 
+
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+
 
 	public String getHeadline() {
 		return headline;
 	}
 
+
 	public void setHeadline(String headline) {
 		this.headline = headline;
 	}
+
 
 	public String getComments() {
 		return comments;
 	}
 
+
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", book=" + book + ", customer=" + customer + ", rating=" + rating
+		return "Review [reviewId=" + reviewId + ", book=" + book + ", user=" + user + ", rating=" + rating
 				+ ", headline=" + headline + ", comments=" + comments + "]";
 	}
+
+
+	
 }
