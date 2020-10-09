@@ -95,7 +95,6 @@ public class ReviewRestController{
 		if (review == null) {
 			throw new RuntimeException("review is null");
 		}
-
 		return reviewService.createReview(review);
 	}
 
