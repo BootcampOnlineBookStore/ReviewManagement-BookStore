@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.entity.Review;
 import com.cg.exceptions.InvalidDetailsException;
+import com.cg.exceptions.RecordNotFoundException;
 import com.cg.service.ReviewService;
 
 
@@ -38,6 +39,8 @@ public class ReviewRestController{
 * Method: updateReview
                 *Description: To edit an existing review in the book store application
 * @param  review	      							- object of the Entity class 'Review' 
+ * @throws InvalidDetailsException 
+ * @throws RecordNotFoundException 
 * @returns updateReview method in service layer     - after executing the updateReview method
 * 
                 *Created By                              - Vaishnavi Voorelli
@@ -45,7 +48,7 @@ public class ReviewRestController{
  
 ************************************************************************************/
 	@PutMapping(value = "/UpdateReview", produces = "application/json")
-	public ResponseEntity<Review> updateReview(@RequestBody Review review) throws InvalidDetailsException{
+	public ResponseEntity<Review> updateReview(@RequestBody Review review) throws RecordNotFoundException, InvalidDetailsException{
 		if (review == null) {
 			throw new RuntimeException("review is null");
 		}
@@ -58,6 +61,8 @@ public class ReviewRestController{
 	* Method: getReviewByBookId
 	                *Description: To display the reviews posted by the users on a particular book by using it's Id
 	* @param  bookId	      								- Id of the book for which, the reviews are requested to be displayed 
+	 * @throws InvalidDetailsException 
+	 * @throws RecordNotFoundException 
 	* @returns getReviewByBookId method in service layer	- after executing the getReviewByBookId method* 
 	                *Created By                              - Vaishnavi Voorelli
 	                *Created Date                            - 06-10-2020                           
@@ -65,7 +70,7 @@ public class ReviewRestController{
 	************************************************************************************/
 
 	@GetMapping(value = "/getReviewByBookId/{bookId}", produces = "application/json")
-	public ResponseEntity<Optional<List<Review>>> getReviewByBookId(@PathVariable int bookId) throws InvalidDetailsException{
+	public ResponseEntity<Optional<List<Review>>> getReviewByBookId(@PathVariable int bookId) throws RecordNotFoundException, InvalidDetailsException {
 		if (bookId == 0) {
 			throw new RuntimeException("bookId is null");
 		}
@@ -81,7 +86,7 @@ public class ReviewRestController{
 	}
 
 	@DeleteMapping("/deleteReview/{reviewId}")
-	public String deleteReview(@PathVariable int reviewId) throws InvalidDetailsException{
+	public String deleteReview(@PathVariable int reviewId) throws RecordNotFoundException, InvalidDetailsException{
 		if (reviewId == 0) {
 			throw new RuntimeException("reviewId is null");
 		}
@@ -90,7 +95,7 @@ public class ReviewRestController{
 	}
 
 	@PostMapping(value = "/CreateReview", produces = "application/json")
-	public ResponseEntity<Review> createReview(@RequestBody Review review) throws InvalidDetailsException {
+	public ResponseEntity<Review> createReview(@RequestBody Review review) throws RecordNotFoundException, InvalidDetailsException  {
 
 		if (review == null) {
 			throw new RuntimeException("review is null");

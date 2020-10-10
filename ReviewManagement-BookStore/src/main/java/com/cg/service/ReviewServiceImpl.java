@@ -10,13 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.cg.dao.ReviewDao;
 import com.cg.entity.Review;
+import com.cg.exceptions.InvalidDetailsException;
+import com.cg.exceptions.RecordNotFoundException;
 @Service
 public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	ReviewDao reviewDao;
 
 	@Override
-	public ResponseEntity<Review> updateReview(Review review) {
+	public ResponseEntity<Review> updateReview(Review review)throws RecordNotFoundException, InvalidDetailsException{
 		Optional<Review> reviews = reviewDao.findById(review.getReviewId());
 		if (!reviews.isPresent())
 			return new ResponseEntity<Review>(review, HttpStatus.NOT_FOUND);
@@ -30,24 +32,24 @@ public class ReviewServiceImpl implements ReviewService{
 
 	
 	@Override
-	public Optional<List<Review>> getReviewByBookId(int bookId) {
+	public Optional<List<Review>> getReviewByBookId(int bookId)throws RecordNotFoundException,InvalidDetailsException{
 		return reviewDao.getReviewByBookId(bookId);
 
 	}
 
 	@Override
-	public List<Review> getReviews() {
+	public List<Review> getReviews()throws RecordNotFoundException {
 		return reviewDao.findAll();
 	}
 
 	@Override
-	public String deleteReview(int reviewId) {
+	public String deleteReview(int reviewId)throws RecordNotFoundException, InvalidDetailsException {
 		reviewDao.deleteById(reviewId);
 		return "review Deleted";
 	}
 
 	@Override
-	public ResponseEntity<Review> createReview(Review review) {
+	public ResponseEntity<Review> createReview(Review review) throws RecordNotFoundException, InvalidDetailsException{
 		Optional<Review> reviews = reviewDao.findById(review.getReviewId());
 		if (reviews.isPresent()) {
 			review.setRating(reviews.get().getRating());

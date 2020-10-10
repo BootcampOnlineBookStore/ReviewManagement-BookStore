@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import com.cg.entity.Review;
+import com.cg.exceptions.InvalidDetailsException;
+import com.cg.exceptions.RecordNotFoundException;
 import com.cg.service.ReviewService;
 
 @SpringBootTest
@@ -27,7 +29,7 @@ ReviewService reviewservice;
 	}
 
 	@Test
-	public void getReviewById() {
+	public void getReviewById() throws RecordNotFoundException, InvalidDetailsException {
 		Optional<List<Review>> review1=reviewservice.getReviewByBookId(2002);
 		assertNotNull(review1);
 	}
