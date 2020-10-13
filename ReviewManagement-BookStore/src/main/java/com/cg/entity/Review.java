@@ -3,12 +3,9 @@ package com.cg.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 /************************************************************************************
  *          @author          Vaishnavi Voorelli
@@ -22,9 +19,8 @@ import javax.persistence.Table;
 @Table(name = "review_tb")
 public class Review {
 	@Id
-	@GeneratedValue(generator = "review_seq",strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "review_seq",sequenceName = "review_seq")
-	private int reviewId;
+	
+	private Integer reviewId;
 
 	@ManyToOne
 	@JoinColumn(name = "book_id")
@@ -44,7 +40,7 @@ public class Review {
 	}
 
 
-	public Review(int reviewId, int rating, String headline, String comments) {
+	public Review(Integer reviewId, int rating, String headline, String comments) {
 		super();
 		this.reviewId = reviewId;
 		this.rating = rating;
@@ -53,7 +49,7 @@ public class Review {
 	}
 
 
-	public Review(int reviewId, Book book, User user, int rating, String headline, String comments) {
+	public Review(Integer reviewId, Book book, User user, int rating, String headline, String comments) {
 		super();
 		this.reviewId = reviewId;
 		this.book = book;
@@ -64,12 +60,12 @@ public class Review {
 	}
 
 
-	public int getReviewId() {
+	public Integer getReviewId() {
 		return reviewId;
 	}
 
 
-	public void setReviewId(int reviewId) {
+	public void setReviewId(Integer reviewId) {
 		this.reviewId = reviewId;
 	}
 
